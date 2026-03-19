@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solarization of Rural Piped Water Supply System under JJM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f4f8f0;
+      --ink: #11352d;
+      --ink-soft: #35564d;
+      --accent: #f2b950;
+      --accent-deep: #d49a2d;
+      --leaf: #2f7a58;
+      --card: #ffffff;
+      --line: #cfe0d5;
+      --hero-grad: linear-gradient(120deg, #f3fbec 0%, #e5f2fa 52%, #fff9ea 100%);
+      --danger: #c0392b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Outfit", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(242,185,80,0.18), transparent 36%),
+        radial-gradient(circle at 80% 90%, rgba(47,122,88,0.14), transparent 30%),
+        var(--bg);
+      line-height: 1.5;
+    }
+
+    .container { width: min(1120px, 92vw); margin: 0 auto; }
+
+    header {
+      background: var(--hero-grad);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero {
+      padding: 3.6rem 0 2.8rem;
+      text-align: center;
+    }
+
+    h1, h2, h3 {
+      font-family: "Source Serif 4", serif;
+      letter-spacing: 0.2px;
+      margin: 0 0 0.8rem;
+    }
+
+    h1 { font-size: clamp(1.7rem, 3.8vw, 3rem); line-height: 1.1; }
+    h2 { font-size: clamp(1.3rem, 2.2vw, 1.8rem); }
+    h3 { font-size: 1rem; }
+
+    .lead {
+      font-size: 1.02rem;
+      color: var(--ink-soft);
+      margin: 0 auto 1.2rem;
+      max-width: 64ch;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.8rem;
+    }
+
+    main section { padding: 2.6rem 0; }
+
+    .calculator-wrap {
+      background: #f9fcf8;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 1.6rem;
+      box-shadow: 0 10px 24px rgba(13,35,31,0.07);
+    }
+
+    .section-group {
+      margin-bottom: 1.4rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-group:last-of-type { border-bottom: none; margin-bottom: 0; }
+
+    .section-group h3 {
+      color: var(--leaf);
+      margin-bottom: 0.7rem;
+      font-size: 1.05rem;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .calc-grid.three-col {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .full-width { grid-column: 1 / -1; }
+
+    label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid #bcd3c5;
+      border-radius: 10px;
+      font: inherit;
+      padding: 0.6rem 0.7rem;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+
+    input[type="file"] {
+      padding: 0.45rem 0.5rem;
+      font-size: 0.88rem;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid var(--leaf);
+      outline-offset: 1px;
+    }
+
+    .input-note {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      margin-top: 0.15rem;
+      font-weight: 400;
+    }
+
+    .pump-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.6rem;
+      align-items: end;
+    }
+
+    .upload-area {
+      border: 2px dashed #a8c5b4;
+      border-radius: 12px;
+      padding: 1rem;
+      background: #fff;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .upload-area:hover { border-color: var(--leaf); }
+
+    .upload-area .upload-icon {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .upload-area p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+    }
+
+    .preview-grid img {
+      width: 100%;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+    }
+
+    .preview-single {
+      margin-top: 0.6rem;
+    }
+
+    .preview-single img {
+      max-width: 100%;
+      max-height: 140px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      font: inherit;
+      font-weight: 600;
+      padding: 0.68rem 1.1rem;
+      cursor: pointer;
+      transition: transform 160ms ease, opacity 160ms ease;
+      font-size: 0.95rem;
+    }
+
+    button:hover { transform: translateY(-1px); opacity: 0.95; }
+
+    .primary { color: #172b1f; background: var(--accent); }
+    .secondary { color: #fff; background: var(--leaf); }
+
+    .result {
+      margin-top: 1.2rem;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.2rem;
+      display: none;
+    }
+
+    .result h3 {
+      margin: 0 0 0.7rem;
+      color: var(--leaf);
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem 1.2rem;
+    }
+
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid #eef5ee;
+    }
+
+    .result-item .label { color: var(--ink-soft); font-size: 0.9rem; }
+    .result-item .value { font-weight: 600; font-size: 0.95rem; }
+
+    .land-ok { color: #27ae60; font-weight: 700; }
+    .land-fail { color: var(--danger); font-weight: 700; }
+
+    .error-msg {
+      color: var(--danger);
+      font-weight: 600;
+      padding: 0.8rem;
+      background: #fdf0ef;
+      border-radius: 10px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .thumb-rule-section {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f0f8f5;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      display: none;
+    }
+
+    .thumb-rule-section.active {
+      display: block;
+    }
+
+    .view-btn {
+      background: #e8f5e9;
+      color: var(--leaf);
+      border: 1px solid var(--leaf);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 0.8rem;
+    }
+
+    .view-btn:hover {
+      background: var(--leaf);
+      color: #fff;
+    }
+
+    canvas {
+      width: 100%;
+      max-width: 100%;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    footer {
+      background: #17372f;
+      color: #eaf7ef;
+      text-align: center;
+      padding: 1.2rem 0;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 920px) {
+      .calc-grid, .calc-grid.three-col { grid-template-columns: 1fr; }
+      .pump-row { grid-template-columns: 1fr; }
+      .result-grid { grid-template-columns: 1fr; }
+      .preview-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container hero">
+      <span class="badge">Jal Jeevan Mission — Solar Initiative</span>
+      <h1>Solarization of Rural Piped Water Supply System under JJM</h1>
+      <p class="lead">
+        Convert rural piped water supply pumping infrastructure from grid/diesel dependence to solar energy — reducing operating costs and ensuring reliable, year-round water service delivery.
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="calculator-wrap">
+      <h2>Preliminary Solar Sizing Calculator</h2>
+      <p class="lead" style="margin-bottom:1rem;">Enter scheme details and pump specifications to generate a preliminary solar system estimate.</p>
+
+      <!-- Scheme Information -->
+      <div class="section-group">
+        <h3>Scheme Information</h3>
+        <div class="calc-grid">
+          <div>
+            <label for="division">Name of Division</label>
+            <input type="text" id="division" placeholder="e.g., Jaipur Division" />
+          </div>
+          <div>
+            <label for="subdivision">Name of Sub-division</label>
+            <input type="text" id="subdivision" placeholder="e.g., Amer Sub-division" />
+          </div>
+          <div>
+            <label for="schemeName">Scheme Name</label>
+            <input type="text" id="schemeName" placeholder="e.g., Rampur RPWS Scheme" />
+          </div>
+          <div>
+            <label for="schemeId">Scheme ID</label>
+            <input type="text" id="schemeId" placeholder="e.g., JJM-RJ-2024-001" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Pump Details -->
+      <div class="section-group">
+        <h3>Pump Specifications</h3>
+
+        <label style="margin-bottom:0.5rem; font-size:0.92rem; color:var(--ink);">Submersible Pump</label>
+        <div class="pump-row" style="margin-bottom:0.9rem;">
+          <div>
+            <label for="subHP">Capacity (HP)</label>
+            <input type="number" id="subHP" placeholder="e.g., 10" min="0" step="0.5" />
+          </div>
+          <div>
+            <label for="subCount">Number of Pumps</label>
+            <input type="number" id="subCount" placeholder="e.g., 2" min="0" step="1" />
+          </div>
+          <div>
+            <label for="subEff">Efficiency (%)</label>
+            <input type="number" id="subEff" placeholder="e.g., 75" min="1" max="100" value="75" />
+          </div>
+        </div>
+
+        <label style="margin-bottom:0.5rem; font-size:0.92rem; color:var(--ink);">Centrifugal Pump</label>
+        <div class="pump-row">
+          <div>
+            <label for="centHP">Capacity (HP)</label>
+            <input type="number" id="centHP" placeholder="e.g., 5" min="0" step="0.5" />
+          </div>
+          <div>
+            <label for="centCount">Number of Pumps</label>
+            <input type="number" id="centCount" placeholder="e.g., 1" min="0" step="1" />
+          </div>
+          <div>
+            <label for="centEff">Efficiency (%)</label>
+            <input type="number" id="centEff" placeholder="e.g., 70" min="1" max="100" value="70" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Solar Panel Specification -->
+      <div class="section-group">
+        <h3>Solar Panel Specification</h3>
+        <div class="calc-grid">
+          <div>
+            <label for="panelWattage">Panel Wattage (Wp)</label>
+            <input type="number" id="panelWattage" placeholder="e.g., 600" min="600" step="10" value="600" />
+            <div class="input-note">Minimum 600 Wp per panel</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Site Details -->
+      <div class="section-group">
+        <h3>Site Details</h3>
+        <div class="calc-grid">
+          <div>
+            <label for="landArea">Shadow-free Land Area (sq.m)</label>
+            <input type="number" id="landArea" placeholder="e.g., 500" min="0" />
+            <div class="input-note">Based on field verification</div>
+          </div>
+          <div>
+            <label for="dtwDist">Distance of DTW from Pump House (m)</label>
+            <input type="number" id="dtwDist" placeholder="e.g., 80" min="0" max="120" />
+            <div class="input-note">Must not exceed 120 m</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Field Photographs -->
+      <div class="section-group">
+        <h3>Field Photographs</h3>
+        <div class="upload-area" id="photoDropArea" onclick="document.getElementById('fieldPhotos').click();">
+          <span class="upload-icon">&#128247;</span>
+          <p><strong>Click to upload field photographs</strong><br />Add option (JPG, PNG)</p>
+          <input type="file" id="fieldPhotos" accept="image/*" multiple style="display:none;" onchange="previewPhotos(this)" />
+        </div>
+        <div class="preview-grid" id="photoPreview"></div>
+        <div class="input-note" id="photoCount"></div>
+      </div>
+
+      <!-- Site Layout -->
+      <div class="section-group">
+        <h3>Site Layout (AutoCAD Drawing)</h3>
+        <div class="upload-area" id="layoutDropArea" onclick="document.getElementById('siteLayout').click();">
+          <span class="upload-icon">&#128206;</span>
+          <p><strong>Click to upload site layout image</strong><br />AutoCAD-drawn layout (JPG, PNG, PDF)</p>
+          <input type="file" id="siteLayout" accept="image/*,.pdf" style="display:none;" onchange="previewLayout(this)" />
+        </div>
+        <div class="preview-single" id="layoutPreview"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button class="primary" type="button" onclick="calculate()">Calculate Solar Sizing</button>
+        <button class="secondary" type="button" onclick="downloadExcel()">Download Details in Excel</button>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <!-- Results -->
+      <div class="result" id="output">
+        <h3>Solar Sizing Results</h3>
+        <div class="result-grid" id="resultGrid"></div>
+        <button class="view-btn" type="button" onclick="toggleThumbRuleDetails()">View Thumb Rule Details</button>
+        <div class="thumb-rule-section" id="thumbRuleSection">
+          <div class="result-item">
+            <span class="label">Number of Panels (Thumb rule)</span>
+            <span class="value" id="thumbRuleValue"></span>
+          </div>
+        </div>
+      </div>
+
+      <canvas id="layoutCanvas" width="760" height="360"></canvas>
+    </section>
+  </main>
+
+  <footer>
+    Solarization of Rural Piped Water Supply System under JJM
+  </footer>
+
+  <script>
+    let schemeNoteText = "";
+
+    function previewPhotos(input) {
+      const container = document.getElementById("photoPreview");
+      const countEl = document.getElementById("photoCount");
+      container.innerHTML = "";
+      const files = input.files;
+      countEl.textContent = files.length + " photograph(s) selected" + (files.length < 1 ? " — minimum 1 required" : "");
+      countEl.style.color = files.length < 1 ? "#c0392b" : "#27ae60";
+      for (let i = 0; i < files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.alt = "Field photo " + (i + 1);
+          container.appendChild(img);
+        };
+        reader.readAsDataURL(files[i]);
+      }
+    }
+
+    function previewLayout(input) {
+      const container = document.getElementById("layoutPreview");
+      container.innerHTML = "";
+      if (input.files.length > 0) {
+        const file = input.files[0];
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.alt = "Site layout";
+            container.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          container.innerHTML = '<p style="font-size:0.88rem; color:var(--ink-soft);">PDF file selected: ' + file.name + '</p>';
+        }
+      }
+    }
+
+    function showError(msg) {
+      const el = document.getElementById("errorMsg");
+      el.textContent = msg;
+      el.style.display = "block";
+      document.getElementById("output").style.display = "none";
+      document.getElementById("layoutCanvas").style.display = "none";
+    }
+
+    function hideError() {
+      document.getElementById("errorMsg").style.display = "none";
+    }
+
+    // Store last calculation data for Excel download
+    let calcData = null;
+
+    function calculate() {
+      hideError();
+
+      const division = document.getElementById("division").value.trim();
+      const subdivision = document.getElementById("subdivision").value.trim();
+      const schemeName = document.getElementById("schemeName").value.trim();
+      const schemeId = document.getElementById("schemeId").value.trim();
+
+      const subHP = parseFloat(document.getElementById("subHP").value) || 0;
+      const subCount = parseInt(document.getElementById("subCount").value) || 0;
+      const subEff = parseFloat(document.getElementById("subEff").value) || 75;
+
+      const centHP = parseFloat(document.getElementById("centHP").value) || 0;
+      const centCount = parseInt(document.getElementById("centCount").value) || 0;
+      const centEff = parseFloat(document.getElementById("centEff").value) || 70;
+
+      const panelWattage = parseFloat(document.getElementById("panelWattage").value) || 0;
+      const landArea = parseFloat(document.getElementById("landArea").value);
+      const dtwDist = parseFloat(document.getElementById("dtwDist").value);
+
+      // Validations
+      if (!division || !subdivision || !schemeName || !schemeId) {
+        showError("Please fill in all scheme information fields.");
+        return;
+      }
+
+      if (subHP <= 0 && centHP <= 0) {
+        showError("Please enter at least one pump specification (Submersible or Centrifugal).");
+        return;
+      }
+
+      if (subHP > 0 && subCount <= 0) {
+        showError("Please enter the number of submersible pumps.");
+        return;
+      }
+
+      if (centHP > 0 && centCount <= 0) {
+        showError("Please enter the number of centrifugal pumps.");
+        return;
+      }
+
+      if (panelWattage < 600) {
+        showError("Panel wattage must be at least 600 Wp.");
+        return;
+      }
+
+      if (isNaN(landArea) || landArea <= 0) {
+        showError("Please enter a valid shadow-free land area.");
+        return;
+      }
+
+      if (isNaN(dtwDist) || dtwDist <= 0) {
+        showError("Please enter the distance of DTW from pump house.");
+        return;
+      }
+
+      if (dtwDist > 120) {
+        showError("Distance of DTW from pump house must not exceed 120 m.");
+        return;
+      }
+
+      const photoCount = document.getElementById("fieldPhotos").files.length;
+      if (photoCount < 1) {
+        showError("Please upload a minimum of 1 field photograph.");
+        return;
+      }
+
+      if (document.getElementById("siteLayout").files.length === 0) {
+        showError("Please upload a site layout image (AutoCAD drawing).");
+        return;
+      }
+
+      // Calculate motor kW separately for submersible and centrifugal pumps
+      const subKW = subHP > 0 ? (subHP * 0.746 * subCount) / (subEff / 100) : 0;
+      const centKW = centHP > 0 ? (centHP * 0.746 * centCount) / (centEff / 100) : 0;
+      const totalMotorKW = subKW + centKW;
+
+      // Solar capacity (kWp) = total motor kW × 1.5 (oversize factor)
+      const solarKWp = totalMotorKW * 1.5;
+
+      // Panel specifications using user-provided wattage
+      const singlePanelW = panelWattage;
+      const singlePanelKW = singlePanelW / 1000;
+      const numPanels = Math.ceil((solarKWp * 1000) / singlePanelW);
+
+      // Panel size approx 2 sq.m (±10%)
+      const panelAreaSqm = 2;
+      const panelAreaMin = (panelAreaSqm * 0.9).toFixed(1);
+      const panelAreaMax = (panelAreaSqm * 1.1).toFixed(1);
+
+      // Number of panel (Thumb rule): (Pump Voltage / Vmp per panel) + 2
+      const pumpVoltage = 400;
+      const vmpPerPanel = 40;
+      const thumbRulePanelsPerPump = Math.ceil(pumpVoltage / vmpPerPanel) + 2;
+      const totalPumpCount = (subHP > 0 ? subCount : 0) + (centHP > 0 ? centCount : 0);
+      const thumbRulePanels = thumbRulePanelsPerPump * totalPumpCount;
+
+      // Inverter size = ceil(total motor kW × 1.25)
+      const inverterKW = Math.ceil(totalMotorKW * 1.25);
+
+      // VFD size = ceil(total motor kW × 1.2)
+      const vfdKW = Math.ceil(totalMotorKW * 1.2);
+
+      // Required land area = ceil(solar kWp × 9 sq.m/kWp)
+      const requiredArea = Math.ceil(solarKWp * 9);
+
+      // Panel layout
+      const panelsPerRow = 10;
+      const rows = Math.ceil(numPanels / panelsPerRow);
+      const nsSpacing = 3.5;
+
+      // Land adequacy
+      const landAdequate = landArea >= requiredArea;
+
+      // Display results
+      const output = document.getElementById("output");
+      const grid = document.getElementById("resultGrid");
+      output.style.display = "block";
+
+      const results = [
+        { label: "Submersible Motor Load", value: subKW > 0 ? subKW.toFixed(2) + " kW" : "N/A" },
+        { label: "Centrifugal Motor Load", value: centKW > 0 ? centKW.toFixed(2) + " kW" : "N/A" },
+        { label: "Total Motor Load", value: totalMotorKW.toFixed(2) + " kW" },
+        { label: "Solar Plant Capacity (×1.5)", value: solarKWp.toFixed(2) + " kWp" },
+        { label: "Panel Wattage", value: singlePanelW + " Wp (" + singlePanelKW + " kWp)" },
+        { label: "Panel Area (approx)", value: panelAreaSqm + " sq.m (±10%, i.e. " + panelAreaMin + "–" + panelAreaMax + " sq.m)" },
+        { label: "Number of Panels (by kWp)", value: thumbRulePanels },
+        { label: "Solar Inverter Size", value: inverterKW + " kW" },
+        { label: "VFD Size", value: vfdKW + " kW" },
+        { label: "Required Land Area", value: requiredArea + " sq.m" },
+        { label: "Available Land Area", value: landArea + " sq.m" },
+        { label: "Land Adequacy Check", value: landAdequate ? "Adequate — Sufficient land available" : "Inadequate — Additional " + (requiredArea - landArea) + " sq.m required", cls: landAdequate ? "land-ok" : "land-fail" },
+        { label: "Panel Layout Rows", value: rows + " rows × " + panelsPerRow + " panels (aligned with seasonal irradiance)" },
+        { label: "North–South Spacing", value: nsSpacing + " m" },
+      ];
+
+      // Set thumb rule value separately
+      document.getElementById("thumbRuleValue").textContent = thumbRulePanelsPerPump + " per pump × " + totalPumpCount + " pump(s) = " + thumbRulePanels + " nos. (" + pumpVoltage + "V/" + vmpPerPanel + "V + 2)";
+
+      grid.innerHTML = results.map(function(r) {
+        return '<div class="result-item"><span class="label">' + r.label + '</span><span class="value' + (r.cls ? " " + r.cls : "") + '">' + r.value + '</span></div>';
+      }).join("");
+
+      // Draw layout
+      drawLayout(rows, panelsPerRow, thumbRulePanels);
+
+      // Store calculation data for Excel download
+      calcData = {
+        division, subdivision, schemeName, schemeId,
+        subHP, subCount, subEff, subKW,
+        centHP, centCount, centEff, centKW,
+        totalMotorKW, solarKWp,
+        singlePanelW, singlePanelKW, numPanels,
+        panelAreaSqm, panelAreaMin, panelAreaMax,
+        thumbRulePanelsPerPump, totalPumpCount, thumbRulePanels,
+        inverterKW, vfdKW, requiredArea,
+        landArea, dtwDist, landAdequate,
+        rows, panelsPerRow, nsSpacing,
+        pumpVoltage, vmpPerPanel
+      };
+
+      schemeNoteText = "calculated";
+    }
+
+    function toggleThumbRuleDetails() {
+      const section = document.getElementById("thumbRuleSection");
+      section.classList.toggle("active");
+    }
+
+    function drawLayout(rows, cols, totalPanels) {
+      var panelW = parseFloat(document.getElementById("panelWattage").value) || 600;
+      const canvas = document.getElementById("layoutCanvas");
+      canvas.style.display = "block";
+      const ctx = canvas.getContext("2d");
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      ctx.fillStyle = "#fafcf9";
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.fillStyle = "#11352d";
+      ctx.font = "bold 14px Outfit, sans-serif";
+      ctx.fillText("Visual Solar Panel Layout — " + totalPanels + " Panels (" + rows + " Rows × " + cols + " Panels)", 16, 24);
+
+      ctx.fillStyle = "#2f7a58";
+      ctx.font = "bold 12px Outfit, sans-serif";
+      ctx.fillText("N", W - 30, 22);
+      ctx.beginPath();
+      ctx.moveTo(W - 26, 26);
+      ctx.lineTo(W - 22, 36);
+      ctx.lineTo(W - 30, 36);
+      ctx.closePath();
+      ctx.fillStyle = "#2f7a58";
+      ctx.fill();
+
+      const cellW = 48, cellH = 18, xGap = 6, yGap = 14;
+      const startX = 20, startY = 48;
+      let panelIndex = 0;
+
+      for (let r = 0; r < rows; r++) {
+        ctx.fillStyle = "#7a9e8f";
+        ctx.font = "11px Outfit, sans-serif";
+        const rowY = startY + r * (cellH + yGap);
+
+        for (let c = 0; c < cols; c++) {
+          if (panelIndex >= totalPanels) break;
+          const x = startX + c * (cellW + xGap);
+          const y = rowY;
+
+          if (x + cellW < W - 10 && y + cellH < H - 30) {
+            ctx.fillStyle = "rgba(47, 122, 88, 0.12)";
+            ctx.fillRect(x, y, cellW, cellH);
+            ctx.strokeStyle = "#2f7a58";
+            ctx.lineWidth = 1.2;
+            ctx.strokeRect(x, y, cellW, cellH);
+            ctx.strokeStyle = "rgba(47, 122, 88, 0.3)";
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(x + cellW / 2, y);
+            ctx.lineTo(x + cellW / 2, y + cellH);
+            ctx.moveTo(x, y + cellH / 2);
+            ctx.lineTo(x + cellW, y + cellH / 2);
+            ctx.stroke();
+            panelIndex++;
+          }
+        }
+
+        if (r < rows - 1) {
+          const annotX = startX + cols * (cellW + xGap) + 8;
+          const annotY1 = rowY + cellH;
+          const annotY2 = rowY + cellH + yGap;
+          if (annotX < W - 40) {
+            ctx.strokeStyle = "#b0b8b3";
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(annotX, annotY1);
+            ctx.lineTo(annotX, annotY2);
+            ctx.stroke();
+            ctx.fillStyle = "#7a9e8f";
+            ctx.font = "10px Outfit, sans-serif";
+            ctx.fillText("3.5m", annotX + 4, (annotY1 + annotY2) / 2 + 3);
+          }
+        }
+      }
+
+      const legendY = H - 18;
+      ctx.fillStyle = "#7a9e8f";
+      ctx.font = "11px Outfit, sans-serif";
+      ctx.fillText("Each rectangle = 1 solar panel (" + panelW + "W) | N–S spacing: 3.5 m | Panels aligned with seasonal irradiance", 16, legendY);
+    }
+
+    function downloadExcel() {
+      if (!calcData) { calculate(); }
+      if (!calcData) return;
+
+      var d = calcData;
+      var html = [
+        '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">',
+        '<head><meta charset="utf-8">',
+        '<!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>',
+        '<x:Name>Solar Sizing</x:Name>',
+        '<x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>',
+        '</x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->',
+        '<style>td,th{padding:4px 10px;border:1px solid #999;font-family:Arial,sans-serif;font-size:11pt}',
+        'th{background:#2f7a58;color:#fff;font-weight:bold;text-align:left}',
+        '.section{background:#e8f5e9;font-weight:bold;font-size:12pt;border:none}',
+        '.label{color:#333}.value{font-weight:bold}</style>',
+        '</head><body>',
+        '<table>',
+        '<tr><td class="section" colspan="2">SOLARIZATION OF RURAL PIPED WATER SUPPLY SYSTEM UNDER JJM</td></tr>',
+        '<tr><td colspan="2"></td></tr>',
+        '<tr><th colspan="2">Scheme Information</th></tr>',
+        '<tr><td class="label">Division</td><td class="value">' + d.division + '</td></tr>',
+        '<tr><td class="label">Sub-division</td><td class="value">' + d.subdivision + '</td></tr>',
+        '<tr><td class="label">Scheme Name</td><td class="value">' + d.schemeName + '</td></tr>',
+        '<tr><td class="label">Scheme ID</td><td class="value">' + d.schemeId + '</td></tr>',
+        '<tr><td colspan="2"></td></tr>',
+        '<tr><th colspan="2">Pump Specifications</th></tr>',
+        '<tr><td class="label">Submersible Pump</td><td class="value">' + (d.subHP > 0 ? d.subHP + ' HP × ' + d.subCount + ' nos. (Eff: ' + d.subEff + '%)' : 'N/A') + '</td></tr>',
+        '<tr><td class="label">Submersible Motor Load</td><td class="value">' + (d.subKW > 0 ? d.subKW.toFixed(2) + ' kW' : 'N/A') + '</td></tr>',
+        '<tr><td class="label">Centrifugal Pump</td><td class="value">' + (d.centHP > 0 ? d.centHP + ' HP × ' + d.centCount + ' nos. (Eff: ' + d.centEff + '%)' : 'N/A') + '</td></tr>',
+        '<tr><td class="label">Centrifugal Motor Load</td><td class="value">' + (d.centKW > 0 ? d.centKW.toFixed(2) + ' kW' : 'N/A') + '</td></tr>',
+        '<tr><td class="label">Total Motor Load</td><td class="value">' + d.totalMotorKW.toFixed(2) + ' kW</td></tr>',
+        '<tr><td colspan="2"></td></tr>',
+        '<tr><th colspan="2">Site Details</th></tr>',
+        '<tr><td class="label">Shadow-free Land Area</td><td class="value">' + d.landArea + ' sq.m</td></tr>',
+        '<tr><td class="label">DTW to Pump House Distance</td><td class="value">' + d.dtwDist + ' m</td></tr>',
+        '<tr><td colspan="2"></td></tr>',
+        '<tr><th colspan="2">Solar Sizing Results</th></tr>',
+        '<tr><td class="label">Solar Plant Capacity (×1.5 oversize)</td><td class="value">' + d.solarKWp.toFixed(2) + ' kWp</td></tr>',
+        '<tr><td class="label">Panel Wattage</td><td class="value">' + d.singlePanelW + ' Wp (' + d.singlePanelKW + ' kWp)</td></tr>',
+        '<tr><td class="label">Panel Area (approx)</td><td class="value">2 sq.m (±10%, i.e. ' + d.panelAreaMin + '–' + d.panelAreaMax + ' sq.m)</td></tr>',
+        '<tr><td class="label">Number of Panels (by kWp)</td><td class="value">' + d.numPanels + '</td></tr>',
+        '<tr><td class="label">Number of Panels (Thumb rule)</td><td class="value">' + d.thumbRulePanelsPerPump + ' per pump × ' + d.totalPumpCount + ' pump(s) = ' + d.thumbRulePanels + ' nos. (' + d.pumpVoltage + 'V/' + d.vmpPerPanel + 'V + 2)</td></tr>',
+        '<tr><td class="label">Solar Inverter Size</td><td class="value">' + d.inverterKW + ' kW</td></tr>',
+        '<tr><td class="label">VFD Size</td><td class="value">' + d.vfdKW + ' kW</td></tr>',
+        '<tr><td class="label">Required Land Area</td><td class="value">' + d.requiredArea + ' sq.m</td></tr>',
+        '<tr><td class="label">Available Land Area</td><td class="value">' + d.landArea + ' sq.m</td></tr>',
+        '<tr><td class="label">Land Adequacy</td><td class="value">' + (d.landAdequate ? 'Adequate' : 'Inadequate — Additional ' + (d.requiredArea - d.landArea) + ' sq.m needed') + '</td></tr>',
+        '<tr><td class="label">Panel Layout</td><td class="value">' + d.rows + ' rows × ' + d.panelsPerRow + ' panels</td></tr>',
+        '<tr><td class="label">North–South Spacing</td><td class="value">' + d.nsSpacing + ' m</td></tr>',
+        '<tr><td colspan="2"></td></tr>',
+        '<tr><th colspan="2">Calculation Formulae</th></tr>',
+        '<tr><td class="label">Motor kW</td><td>(HP × 0.746 × Pump Count) / (Efficiency / 100)</td></tr>',
+        '<tr><td class="label">Solar Capacity</td><td>Total Motor kW × 1.5 (oversize factor)</td></tr>',
+        '<tr><td class="label">Inverter Size</td><td>ceil(Total Motor kW × 1.25)</td></tr>',
+        '<tr><td class="label">VFD Size</td><td>ceil(Total Motor kW × 1.2)</td></tr>',
+        '<tr><td class="label">Required Land Area</td><td>ceil(Solar kWp × 9 sq.m/kWp)</td></tr>',
+        '<tr><td class="label">Thumb Rule Panels</td><td>(Pump Voltage / Vmp per Panel) + 2 per pump</td></tr>',
+        '<tr><td colspan="2"></td></tr>',
+        '<tr><td colspan="2" style="font-size:9pt;color:#666">This is an auto-generated preliminary estimate for planning and discussion purposes under JJM Solarization.</td></tr>',
+        '</table>',
+        '</body></html>'
+      ].join('');
+
+      var blob = new Blob([html], { type: 'application/vnd.ms-excel' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Solar_Sizing_Details_JJM.xls';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+  </script>
+</body>
+</html>
